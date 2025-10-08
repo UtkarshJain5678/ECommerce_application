@@ -1,3 +1,4 @@
+import BackButton from '@/components/ui/BackButton';
 import Head from 'next/head';
 
 const FAQ_ITEMS = [
@@ -26,7 +27,8 @@ const FAQPage: React.FC = () => {
         <title>Frequently Asked Questions | Musicore</title>
       </Head>
 
-      <div className="py-12 max-w-3xl mx-auto">
+      <div className="py-10 max-w-3xl mx-auto">
+        <BackButton />
         <h1 className="text-5xl font-heading text-primary-heading mb-10 text-center">Questions? We have Answers.</h1>
         
         <div className="space-y-6">

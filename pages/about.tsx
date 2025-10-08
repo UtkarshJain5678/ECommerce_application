@@ -1,5 +1,6 @@
 // Filename: pages/about.tsx
 
+import BackButton from '@/components/ui/BackButton';
 import Head from 'next/head';
 
 const AboutUsPage: React.FC = () => {
@@ -9,7 +10,8 @@ const AboutUsPage: React.FC = () => {
         <title>About Us | Musicore</title>
       </Head>
 
-      <div className="py-12">
+      <div className="py-8">
+        <BackButton />
         <h1 className="text-5xl font-heading text-primary-heading mb-6">Our Story: The Passion for Sound</h1>
 
         <div className="space-y-8 text-lg text-primary-txt max-w-4xl">

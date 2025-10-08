@@ -1,10 +1,12 @@
+// Filename: pages/products/index.tsx
+
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 import { getProducts } from '@/lib/firestore/products';
 import { Product } from '@/types/product';
 import React, { useState, useMemo, ChangeEvent } from 'react';
 import { Search } from 'lucide-react'; 
-import FeaturedCarousel from '../../components/product/FeaturedCarousel';
+import FeaturedCarousel from '@/components/product/FeaturedCarousel';
 
 interface ProductsProps {
   products: Product[]; 
@@ -71,21 +73,16 @@ const ProductsPage: React.FC<ProductsProps> = ({ products }) => {
 
       <div className="py-10">
         
-        {/* --- Header and Search Container (RESPONSIVE FLEX LAYOUT) --- */}
-        {/* Mobile: Stack vertically (flex-col). Desktop: Align horizontally (md:flex-row) */}
+        {/* --- Header and Search Container (Responsive Layout) --- */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             
-            {/* Heading (Takes full width if space allows) */}
             <h1 className="text-5xl font-heading text-primary-heading mb-4 md:mb-0">All Instruments</h1>
 
-            {/* Search Bar Implementation */}
-            {/* Mobile: Full width (w-full). Desktop: Small, max-w-xs. */}
             <div className="relative w-full md:w-full md:max-w-xs">
                 <input
                     type="text"
                     placeholder="Search our entire catalog..."
                     value={searchTerm}
-                    title='Search products by name, brand, or description'
                     onChange={handleSearchChange}
                     className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:ring-primary-brand focus:border-primary-brand text-primary-txt text-sm transition duration-150"
                 />
@@ -97,19 +94,11 @@ const ProductsPage: React.FC<ProductsProps> = ({ products }) => {
             {searchTerm ? `Showing results for "${searchTerm}"` : `Browse our entire collection (${products.length} items).`}
         </p>
 
-        {/* --- Display filtered products (SAME AS BEFORE) --- */}
+        {/* --- Product Grid (CRITICAL CHANGE HERE) --- */}
         {filteredProducts.length > 0 ? (
-          <div className="grid w-full gap-6">
-            <FeaturedCarousel products={filteredProducts} />
-            {/* {filteredProducts.map((product) => (
-              <ProductCard 
-                key={product.id} 
-                slug={product.slug} 
-                name={product.name} 
-                price={product.price} 
-                imageUrl={product.imageUrls[0] || '/images/default.jpg'}
-              />
-            ))} */}
+          // The Carousel component will handle its own responsiveness.
+          <div className="mt-8"> 
+             <FeaturedCarousel products={filteredProducts} />
           </div>
         ) : (
           <div className="text-center py-10 border border-dashed border-gray-300 rounded-lg">

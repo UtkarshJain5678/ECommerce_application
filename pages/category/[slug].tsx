@@ -129,18 +129,18 @@ const CategoryPage: React.FC<CategoryProps> = ({ products, categoryName }) => {
 
         {/* --- Product Grid --- */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((product) => (
               <ProductCard 
                 key={product.id}
                 productId={product.id}
+                brand={product.brand}
                 slug={product.slug} 
                 name={product.name} 
                 price={product.price} 
-                brand={product.brand}
                 imageUrl={product.imageUrls[0] || '/images/default.jpg'}
               />
-            ))}
+            ))} 
           </div>
         ) : (
           // This block runs if filtering yields no results OR if the category was empty and the user started searching

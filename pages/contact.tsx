@@ -3,6 +3,7 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, CheckCircle, AlertTriangle } from 'lucide-react';
+import BackButton from '@/components/ui/BackButton';
 
 // Define the shape of the form data
 interface FormData {
@@ -57,6 +58,7 @@ const ContactPage: React.FC = () => {
         
         {/* Left Column: Contact Form */}
         <div className="p-8 bg-white rounded-lg shadow-lg">
+          <BackButton />
           <h1 className="text-4xl font-heading text-primary-heading mb-6">Send Us a Message</h1>
           
           <form onSubmit={handleSubmit} className="space-y-4">

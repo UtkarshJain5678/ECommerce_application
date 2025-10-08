@@ -1,17 +1,15 @@
-// Filename: pages/cart.tsx
-
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image'; 
 import { useCart } from '@/lib/context/CartContext';
 import { Trash2, ShoppingCart } from 'lucide-react';
-import Image from 'next/image';
+import BackButton from '@/components/ui/BackButton';
 
 const CartPage: React.FC = () => {
   const { cart, cartCount, removeItem, updateItemQuantity, clearCart, loadingCart } = useCart();
 
-  // Calculate cart totals
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = subtotal > 199 ? 0 : 15.00; // Example: Free shipping over $199
+  const shipping = subtotal > 199 ? 0 : 15.00; 
   const total = subtotal + shipping;
 
   if (loadingCart) {
@@ -25,9 +23,11 @@ const CartPage: React.FC = () => {
       </Head>
 
       <div className="py-10">
+        <BackButton />
         <h1 className="text-4xl font-heading text-primary-heading mb-8">Your Shopping Cart ({cartCount} Items)</h1>
 
         {cart.length === 0 ? (
+          // Empty Cart State (Same)
           <div className="text-center py-16 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
             <ShoppingCart size={48} className="text-secondary-txt mx-auto mb-4" />
             <p className="text-2xl font-heading text-primary-heading mb-2">Your cart is empty.</p>
@@ -38,55 +38,71 @@ const CartPage: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             
-            {/* Left Column: Cart Items */}
+            {/* Left Column: Cart Items (Mobile: Stacks Vertically) */}
             <div className="lg:col-span-2 space-y-6">
               {cart.map((item) => (
-                <div key={item.productId} className="flex items-center bg-white p-4 rounded-lg shadow-md border">
-                  <div className="w-20 h-20 relative mr-4 flex-shrink-0">
-                    <Image 
-                      src={item.imageUrl} 
-                      alt={item.name} 
-                      fill // Fills the parent div (w-20 h-20)
-                      style={{ objectFit: 'cover' }}
-                      className="rounded-md" 
-                    />
-                  </div>
-                  {/* <img src={item.imageUrl} alt={item.name} className="w-20 h-20 object-cover rounded-md mr-4" /> */}
+                <div key={item.productId} className="flex flex-col sm:flex-row items-start sm:items-center bg-white p-4 rounded-lg shadow-md border">
+                  
+                  {/* Image and Product Info Group */}
+                  <div className="flex items-start w-full sm:w-auto">
+                    {/* Image Container */}
+                    <div className="w-20 h-20 relative mr-4 flex-shrink-0">
+                      <Image 
+                        src={item.imageUrl} 
+                        alt={item.name} 
+                        fill 
+                        style={{ objectFit: 'cover' }}
+                        className="rounded-md" 
+                      />
+                    </div>
 
-                  <div className="flex-grow">
-                    <Link href={`/products/${item.slug}`} className="text-lg font-semibold text-primary-heading hover:text-primary-brand transition">
-                      {item.name}
-                    </Link>
-                    <p className="text-secondary-txt">${item.price.toFixed(2)}</p>
+                    {/* Product Details */}
+                    <div className="flex-grow">
+                      <Link href={`/products/${item.slug}`} className="text-lg font-semibold text-primary-heading hover:text-primary-brand transition">
+                        {item.name}
+                      </Link>
+                      {/* Show unit price on mobile for clarity */}
+                      <p className="text-secondary-txt text-sm sm:hidden">${item.price.toFixed(2)} / Unit</p> 
+                      <p className="text-secondary-txt hidden sm:block">${item.price.toFixed(2)}</p>
+                    </div>
                   </div>
 
-                  <div className="flex items-center space-x-4">
-                    {/* Quantity Selector */}
-                    <input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) => updateItemQuantity(item.productId, parseInt(e.target.value) || 1)}
-                      className="w-16 p-2 border rounded-lg text-center"
-                    />
+                  {/* Quantity, Subtotal, and Remove Group (Mobile: Below Product Info) */}
+                  <div className="flex justify-between items-center w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto">
                     
-                    <p className="font-bold text-lg w-20 text-right">${(item.price * item.quantity).toFixed(2)}</p>
+                    {/* Quantity Selector */}
+                    <div className="flex flex-col items-start sm:items-end mr-4">
+                       <span className="text-xs text-secondary-txt sm:hidden mb-1">Quantity</span>
+                       <input
+                         type="number"
+                         min="1"
+                         value={item.quantity}
+                         onChange={(e) => updateItemQuantity(item.productId, parseInt(e.target.value) || 1)}
+                         className="w-16 p-2 border rounded-lg text-center"
+                       />
+                    </div>
+                    
+                    {/* Line Item Subtotal */}
+                    <div className="flex flex-col items-start sm:items-end mr-4">
+                       <span className="text-xs text-secondary-txt sm:hidden mb-1">Total</span>
+                       <p className="font-bold text-lg w-20 text-left sm:text-right">${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
 
                     {/* Remove Button */}
                     <button
                       onClick={() => removeItem(item.productId)}
-                      className="text-error-color hover:text-red-700 transition p-2"
+                      className="text-error-color hover:text-red-700 transition p-2 flex-shrink-0"
                       aria-label="Remove Item"
                     >
                       <Trash2 size={20} />
                     </button>
-                  </div>
+                  </div> {/* End Quantity/Subtotal Group */}
                 </div>
               ))}
               <button onClick={clearCart} className="text-secondary-txt hover:text-error-color text-sm underline float-right mt-4">Clear Cart</button>
             </div>
 
-            {/* Right Column: Order Summary */}
+            {/* Right Column: Order Summary (Same, relies on LG breakpoint for stacking) */}
             <div className="lg:col-span-1 bg-white p-6 rounded-lg shadow-lg h-fit border">
               <h2 className="text-2xl font-heading text-primary-heading mb-4 border-b pb-2">Order Summary</h2>
               

@@ -4,6 +4,7 @@ import { getProductBySlug, getProducts } from '@/lib/firestore/products';
 import { Product } from '@/types/product';
 import Image from 'next/image';
 import { ShoppingCart, CheckCircle } from 'lucide-react';
+import BackButton from '@/components/ui/BackButton';
 
 interface PDPProps {
   product: Product;
@@ -55,6 +56,7 @@ const ProductDetailPage: React.FC<PDPProps> = ({ product }) => {
       </Head>
 
       <div className="py-10">
+        <BackButton /> {/* PLACEMENT */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left Column: Image Gallery */}
           <div>

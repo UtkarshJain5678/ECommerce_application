@@ -3,6 +3,7 @@
 import Head from 'next/head';
 import { RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+import BackButton from '@/components/ui/BackButton';
 
 const ReturnsPolicyPage: React.FC = () => {
   return (
@@ -11,7 +12,8 @@ const ReturnsPolicyPage: React.FC = () => {
         <title>Returns Policy | Musicore</title>
       </Head>
 
-      <div className="py-12 max-w-4xl mx-auto">
+      <div className="py-10 max-w-4xl mx-auto">
+        <BackButton />
         <h1 className="text-5xl font-heading text-primary-heading mb-6 flex items-center">
             <RefreshCw size={40} className="mr-4 text-primary-brand" /> 30-Day Hassle-Free Returns
         </h1>

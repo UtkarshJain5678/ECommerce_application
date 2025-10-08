@@ -1,6 +1,9 @@
+import BackButton from "@/components/ui/BackButton";
+
 export default function Checkout() {
   return (
     <div className="py-10">
+      <BackButton />
       <h1 className="text-3xl font-heading text-primary-heading mb-6">My Account</h1>
       <p className="text-secondary-txt">Manage your account details and view your order history.</p>
     </div>
