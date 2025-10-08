@@ -24,7 +24,7 @@ const productConverter = (doc: DocumentData): Product => ({
 // --- FETCHING FUNCTIONS ---
 
 // 1. Fetch All Products (or based on query for PLP)
-export async function getProducts(categorySlug?: string): Promise<Product[]> {
+export async function getProducts(category?: string): Promise<Product[]> {
   const productsCollection = collection(db, 'products') as CollectionReference<DocumentData>;
   
   // 1. Correct the type to allow both CollectionReference OR Query
@@ -32,11 +32,11 @@ export async function getProducts(categorySlug?: string): Promise<Product[]> {
   // OR: you could use 'any' if necessary, but the union type above is safer.
   
   // If a category slug is provided, we change the query to filter the results
-  if (categorySlug) {
+  if (category) {
     // This assignment is now valid because finalQuery can hold a Query type
     finalQuery = query(
       productsCollection,
-      where('categorySlugs', 'array-contains', categorySlug.toLowerCase()) 
+      where('category', 'array-contains', category.toLowerCase()) 
     );
   }
 
