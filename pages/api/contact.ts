@@ -9,9 +9,17 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY || '');
 
 // 2. Define the verified sender email address.
 //    This MUST be the email you verified in your SendGrid account (e.g., utkarshjain5678@gmail.com).
-const VERIFIED_SENDER_EMAIL = 'utkarshjain5678@gmail.com'; 
+const VERIFIED_SENDER_EMAIL = 'utkarshjain5678@gmail.com'; // TODO: Replace with your verified sender email
 
 // --- Handler Function ---
+interface SendGridErrorResponse {
+  response: {
+    body: {
+      errors?: Array<{ message: string }>;
+    };
+  };
+  message: string;
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // 1. Method Check
@@ -51,10 +59,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // 3. Success Response
     return res.status(200).json({ message: 'Success! Your message has been sent.' });
 
-  } catch (error: any) {
-    // Log detailed error for debugging purposes
-    console.error('SendGrid Error Details:', error.response?.body || error.message);
+  } catch (error) {
     
+    let errorMessage = 'An unexpected server error occurred.';
+    
+    // Safely assign errorDetails only if the type is known or can be narrowed
+    let errorDetails: string | object = (typeof error === 'object' && error !== null) || (typeof error === 'string') 
+        ? error 
+        : errorMessage; 
+
+    // --- Type Guard Check (Safely checks for SendGrid structure) ---
+    // We check if the error resembles our defined SendGrid error response
+    if (typeof error === 'object' && error !== null && 'response' in error && (error as SendGridErrorResponse).response?.body) {
+        
+        const sgError = error as SendGridErrorResponse;
+
+        // Use the strongly typed object to extract the message
+        errorMessage = `SendGrid Error: ${sgError.response.body.errors?.[0]?.message || 'Check server logs.'}`;
+        errorDetails = sgError.response.body; // Assigns the typed body object
+        
+    } else if (error instanceof Error) {
+        errorMessage = error.message;
+    }
+
+    // Log detailed error for debugging purposes
+    console.error('SendGrid Error Details:', errorDetails);
+    console.error('Internal Error Message:', errorMessage);
+
     // 4. Error Response
     return res.status(500).json({ error: 'Failed to send message due to a server error.' });
   }

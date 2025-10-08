@@ -2,8 +2,9 @@
 
 // import { db } from '@/components/firebase/config'; // Use your actual path
 import { db } from '@/components/firebase/config'; // Use your actual path
-import { collection, getDocs, getDoc, doc, query, where, DocumentData } from 'firebase/firestore';
+import { collection, getDocs, query, where, DocumentData } from 'firebase/firestore';
 import { Product } from '@/types/product';
+import { CollectionReference, Query } from 'firebase/firestore';
 
 // Utility function to convert Firestore DocumentData to our Product interface
 const productConverter = (doc: DocumentData): Product => ({
@@ -24,23 +25,22 @@ const productConverter = (doc: DocumentData): Product => ({
 
 // 1. Fetch All Products (or based on query for PLP)
 export async function getProducts(categorySlug?: string): Promise<Product[]> {
-  const productsCollection = collection(db, 'products');
+  const productsCollection = collection(db, 'products') as CollectionReference<DocumentData>;
   
-  // Define the base collection or query here
-  let finalQuery: any = productsCollection; 
-
+  // 1. Correct the type to allow both CollectionReference OR Query
+  let finalQuery: CollectionReference<DocumentData> | Query<DocumentData> = productsCollection;
+  // OR: you could use 'any' if necessary, but the union type above is safer.
+  
   // If a category slug is provided, we change the query to filter the results
   if (categorySlug) {
-    // When using query(), the resulting object is a Query, not a CollectionReference
+    // This assignment is now valid because finalQuery can hold a Query type
     finalQuery = query(
       productsCollection,
-      where('category', 'array-contains', categorySlug.toLowerCase())
+      where('categorySlugs', 'array-contains', categorySlug.toLowerCase()) 
     );
   }
 
-  // Pass the correct Query or CollectionReference to getDocs
-  // NOTE: finalQuery will be a CollectionReference if categorySlug is undefined,
-  // or a Query if categorySlug is defined. Both are accepted by getDocs.
+  // Pass the correct reference/query to getDocs
   const snapshot = await getDocs(finalQuery); 
   
   const products: Product[] = snapshot.docs.map(doc => productConverter(doc));

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Package, Globe } from 'lucide-react';
+import Link from 'next/link';
 
 const ShippingInfoPage: React.FC = () => {
   return (
@@ -20,11 +21,11 @@ const ShippingInfoPage: React.FC = () => {
 
           <h2 className="text-3xl font-heading text-primary-heading pt-4">Domestic Shipping (India)</h2>
           <ul className="list-disc list-inside space-y-2 pl-4">
-            <li>**Delhi NCR:** Estimated 1-2 business days.</li>
-            <li>**Other Cities:** Estimated 5-7 business days.</li>
-            <li>**Free Ground Shipping:** Available for all orders over ₹14,999.</li>
-            <li>**Standard Shipping:** ₹500 flat rate for orders under ₹14,999.</li>
-            <li>**Express 2-Day:** Calculated at checkout based on weight.</li>
+            <li><strong>Delhi NCR:</strong> Estimated 1-2 business days.</li>
+            <li><strong>Other Cities:</strong> Estimated 5-7 business days.</li>
+            <li><strong>Free Ground Shipping:</strong> Available for all orders over ₹14,999.</li>
+            <li><strong>Standard Shipping:</strong> ₹500 flat rate for orders under ₹14,999.</li>
+            <li><strong>Express 2-Day:</strong> Calculated at checkout based on weight.</li>
           </ul>
           
           <h2 className="text-3xl font-heading text-primary-heading pt-4 flex items-center">
@@ -36,7 +37,7 @@ const ShippingInfoPage: React.FC = () => {
 
           <h2 className="text-3xl font-heading text-primary-heading pt-4">Tracking Your Order</h2>
           <p>
-            Once your order ships, you will receive an email confirmation with a tracking number. You can also view the status of your order anytime in your <a href="/account" className="text-primary-brand hover:underline">My Account</a> dashboard.
+            Once your order ships, you will receive an email confirmation with a tracking number. You can also view the status of your order anytime in your <Link href="/account" className="text-primary-brand hover:underline">My Account</Link> dashboard.
           </p>
         </div>
       </div>

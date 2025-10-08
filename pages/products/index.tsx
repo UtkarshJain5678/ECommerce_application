@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
-import ProductCard from '@/components/product/ProductCard'; 
 import { getProducts } from '@/lib/firestore/products';
 import { Product } from '@/types/product';
 import React, { useState, useMemo, ChangeEvent } from 'react';
@@ -114,7 +113,7 @@ const ProductsPage: React.FC<ProductsProps> = ({ products }) => {
           </div>
         ) : (
           <div className="text-center py-10 border border-dashed border-gray-300 rounded-lg">
-             <h3 className="text-2xl font-heading text-secondary-txt">No results for "{searchTerm}"</h3>
+             <h3 className="text-2xl font-heading text-secondary-txt">No results for &quot;{searchTerm}&quot;</h3>
              <p className="text-gray-500 mt-2">Try a different search term or check our categories.</p>
           </div>
         )}

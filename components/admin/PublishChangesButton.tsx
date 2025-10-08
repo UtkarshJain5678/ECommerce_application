@@ -41,10 +41,9 @@ const PublishChangesButton: React.FC<PublishChangesButtonProps> = ({ paths }) =>
       // Success
       alert(`✅ Successfully published ${paths.length} changes! Please refresh the public pages to validate.`);
 
-    } catch (err: any) {
-      console.error(err);
-      setError('Publish failed. Check console for details.');
-      alert(`❌ Publish failed: ${err.message || 'Server error.'}`);
+    } catch (error) {
+        console.error("Webhook error:", error);
+        setError('Publish failed. Check console for details.');
       //TODO for alert show good toaster message
     } finally {
       setLoading(false);

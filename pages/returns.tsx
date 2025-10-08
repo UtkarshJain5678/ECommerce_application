@@ -2,6 +2,7 @@
 
 import Head from 'next/head';
 import { RefreshCw } from 'lucide-react';
+import Link from 'next/link';
 
 const ReturnsPolicyPage: React.FC = () => {
   return (
@@ -30,7 +31,7 @@ const ReturnsPolicyPage: React.FC = () => {
 
           <h2 className="text-3xl font-heading text-primary-heading pt-4">Initiating a Return</h2>
           <p>
-            To begin your return, please visit your <a href="/account" className="text-primary-brand hover:underline">My Account</a> section and find your order history. Select "Request Return" next to the applicable item. You will be provided with a return merchandise authorization (RMA) number and shipping instructions.
+            To begin your return, please visit your <Link href="/account" className="text-primary-brand hover:underline">My Account</Link> section and find your order history. Select &quot;Request Return&quot; next to the applicable item. You will be provided with a return merchandise authorization (RMA) number and shipping instructions.
           </p>
         </div>
       </div>

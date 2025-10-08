@@ -6,6 +6,7 @@ import { ShoppingCart, Minus, Plus, Check } from 'lucide-react';
 import { useCart } from '@/lib/context/CartContext';
 import { CartItem } from '@/types/cart'; 
 import React, { useMemo } from 'react'; // Removed useState and useEffect
+import Image from 'next/image';
 
 interface ProductCardProps {
   productId: string; // Document ID
@@ -108,13 +109,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ productId, slug, name, price,
       <Link href={`/products/${slug}`} className="block group bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-xl transition duration-300 overflow-hidden">
         
         {/* Product Image */}
-        <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden">
+        <div className="relative w-full h-48 overflow-hidden"> {/* Added 'relative' and fixed height */}
+          <Image
+            src={imageUrl}
+            alt={name}
+            // All styling must be applied inside the Image component or the parent div
+            fill 
+            style={{ objectFit: 'cover' }}
+            className="group-hover:opacity-75 transition duration-300"
+          />
+        </div>
+        {/* <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden">
           <img
             src={imageUrl}
             alt={name}
             className="w-full h-48 object-cover group-hover:opacity-75 transition duration-300"
           />
-        </div>
+        </div> */}
         
         {/* Product Details and Button Container */}
         <div className="p-4 space-y-3">

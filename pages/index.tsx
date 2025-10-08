@@ -1,23 +1,16 @@
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
-import ProductCard from '@/components/product/ProductCard';
+// import ProductCard from '@/components/product/ProductCard';
 import { getFeaturedProducts } from '@/lib/firestore/products';
 import { Product } from '@/types/product'; 
-import { Truck, RefreshCw, Headset, CheckCircle } from 'lucide-react';
-import PublishChangesButton from '@/components/admin/PublishChangesButton';
+import { Truck, RefreshCw, Headset } from 'lucide-react'; //CheckCircle
+// import PublishChangesButton from '@/components/admin/PublishChangesButton';
 import FeaturedCarousel from '../components/product/FeaturedCarousel';
+import Link from 'next/link';
 
 interface HomeProps {
   featuredProducts: Product[];
 }
-
-// --- Placeholder Data (Will be replaced with Firestore fetching later) ---
-const featuredProducts = [
-  { slug: 'fender-strat', name: 'Fender Stratocaster', price: 1299.99, imageUrl: '/images/guitar1.jpg' },
-  { slug: 'yamaha-keyboard', name: 'Yamaha P-45 Digital Piano', price: 499.00, imageUrl: '/images/keyboard1.jpg' },
-  { slug: 'pearl-drum-set', name: 'Pearl Roadshow Drum Set', price: 650.00, imageUrl: '/images/drums1.jpg' },
-  { slug: 'ukulele-mahogany', name: 'Mahogany Ukulele', price: 79.50, imageUrl: '/images/ukulele1.jpg' },
-];
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   try {
@@ -70,12 +63,12 @@ const HomePage: React.FC<HomeProps> = ({ featuredProducts }) => {
           <p className="text-gray-300 text-xl mb-8 font-sans">
             Premium instruments for every musician, from beginner to pro.
           </p>
-          <a
+          <Link
             href="/products"
             className="inline-block px-8 py-3 text-lg font-medium text-white bg-primary-brand rounded-lg hover:bg-opacity-90 transition-all duration-300 shadow-xl"
           >
             Show All Instruments
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -109,12 +102,12 @@ const HomePage: React.FC<HomeProps> = ({ featuredProducts }) => {
         <FeaturedCarousel products={featuredProducts} /> 
         
         <div className="text-center mt-10">
-          <a
+          <Link
             href="/products"
             className="inline-block px-6 py-3 border border-primary-brand text-primary-brand rounded-lg hover:bg-primary-brand hover:text-white transition-all duration-300 font-medium"
           >
             View All Instruments
-          </a>
+          </Link>
         </div>
       </section>
     </>

@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useCart } from '@/lib/context/CartContext';
 import { Trash2, ShoppingCart } from 'lucide-react';
+import Image from 'next/image';
 
 const CartPage: React.FC = () => {
   const { cart, cartCount, removeItem, updateItemQuantity, clearCart, loadingCart } = useCart();
@@ -41,8 +42,16 @@ const CartPage: React.FC = () => {
             <div className="lg:col-span-2 space-y-6">
               {cart.map((item) => (
                 <div key={item.productId} className="flex items-center bg-white p-4 rounded-lg shadow-md border">
-                  
-                  <img src={item.imageUrl} alt={item.name} className="w-20 h-20 object-cover rounded-md mr-4" />
+                  <div className="w-20 h-20 relative mr-4 flex-shrink-0">
+                    <Image 
+                      src={item.imageUrl} 
+                      alt={item.name} 
+                      fill // Fills the parent div (w-20 h-20)
+                      style={{ objectFit: 'cover' }}
+                      className="rounded-md" 
+                    />
+                  </div>
+                  {/* <img src={item.imageUrl} alt={item.name} className="w-20 h-20 object-cover rounded-md mr-4" /> */}
 
                   <div className="flex-grow">
                     <Link href={`/products/${item.slug}`} className="text-lg font-semibold text-primary-heading hover:text-primary-brand transition">

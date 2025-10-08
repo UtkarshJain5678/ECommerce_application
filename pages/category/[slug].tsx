@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps<CategoryProps> = async ({ params }) 
 };
 
 
-const CategoryPage: React.FC<CategoryProps> = ({ products, categoryName, categorySlug }) => {
+const CategoryPage: React.FC<CategoryProps> = ({ products, categoryName }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,7 @@ const CategoryPage: React.FC<CategoryProps> = ({ products, categoryName, categor
         <div className="py-20 text-center border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 my-10">
           <Info size={48} className="text-secondary-txt mx-auto mb-4" />
           <h1 className="text-3xl font-heading text-primary-heading mb-2">
-            Currently No Items Available in "{categoryName}"
+            Currently No Items Available in &quot;{categoryName}&quot;
           </h1>
           <p className="text-lg text-secondary-txt">
             We do not have any instruments listed under **{categoryName}** at the moment. 
@@ -145,7 +145,7 @@ const CategoryPage: React.FC<CategoryProps> = ({ products, categoryName, categor
         ) : (
           // This block runs if filtering yields no results OR if the category was empty and the user started searching
           <div className="text-center py-10 border border-dashed border-gray-300 rounded-lg">
-             <h3 className="text-2xl font-heading text-secondary-txt">No {categoryName} found matching "{searchTerm}"</h3>
+             <h3 className="text-2xl font-heading text-secondary-txt">No {categoryName} found matching &quot;{searchTerm}&quot;</h3>
              <p className="text-gray-500 mt-2">Try clearing your search or browsing other categories.</p>
           </div>
         )}

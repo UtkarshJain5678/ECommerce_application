@@ -30,12 +30,12 @@ const getLocalCart = (): CartItem[] => {
 };
 
 // --- Utility: Merge Carts (Simple Merge) ---
-const mergeCarts = (localCart: CartItem[], firestoreCartItems: any[]): CartItem[] => {
+const mergeCarts = (localCart: CartItem[], firestoreCartItems: unknown[]): CartItem[] => {
     const mergedCartMap = new Map<string, CartItem>();
 
-    firestoreCartItems.forEach(item => {
-        // Simplified merge logic
-    });
+//     firestoreCartItems.forEach(_item => {
+//         // Simplified merge logic
+//     });
 
     localCart.forEach(item => {
         mergedCartMap.set(item.productId, item);

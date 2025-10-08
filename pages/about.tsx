@@ -18,12 +18,12 @@ const AboutUsPage: React.FC = () => {
           </p>
           
           <p>
-            Started by a group of musicians and luthiers, our store isn't just about selling gear—it's about preserving the craft and connecting artists with tools that inspire. We carefully curate every guitar, drum, and keyboard, focusing on quality, playability, and heritage.
+            Started by a group of musicians and luthiers, our store isn&apos;t just about selling gear—it&apos;s about preserving the craft and connecting artists with tools that inspire. We carefully curate every guitar, drum, and keyboard, focusing on quality, playability, and heritage.
           </p>
 
           <h2 className="text-3xl font-heading text-primary-heading pt-4">Commitment to Quality</h2>
           <p>
-            We know buying an instrument is a personal investment. That's why every item, whether vintage or brand new, undergoes a rigorous inspection by our team of expert technicians. We guarantee that when you receive an instrument from Musicore, it is tuned, set up, and ready to play.
+            We know buying an instrument is a personal investment. That&apos;s why every item, whether vintage or brand new, undergoes a rigorous inspection by our team of expert technicians. We guarantee that when you receive an instrument from Musicore, it is tuned, set up, and ready to play.
           </p>
 
           <h2 className="text-3xl font-heading text-primary-heading pt-4">Meet Our Community</h2>
